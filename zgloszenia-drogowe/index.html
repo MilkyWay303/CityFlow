@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f3ef">
+    <title>CityFLOW — zgłoszenia drogowe w Krakowie</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="CityFLOW — strona główna">
+        <span class="brand-name">City<b>FLOW</b><small>KRAKÓW · ZGŁOSZENIA DROGOWE</small></span>
+      </a>
+      <nav class="role-switch" aria-label="Wybór widoku">
+        <button class="role-button is-active" type="button" data-view="resident">Dla mieszkańca</button>
+        <button class="role-button" type="button" data-view="official">Panel urzędnika</button>
+      </nav>
+      <span class="city-label"><span class="status-dot"></span> Kraków</span>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> TWOJE MIASTO, WSPÓLNA SPRAWA</p>
+          <h1 id="hero-title">Zauważyłeś problem?<br><span>Daj nam znać.</span></h1>
+          <p class="hero-description" id="hero-description">Dziura w jezdni, uszkodzony chodnik, a może niebezpieczne oznakowanie? Zgłoś to — razem zadbajmy o krakowskie ulice.</p>
+          <div class="hero-note"><span class="note-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M9 7h8v8"/></svg></span><span>Każde zgłoszenie pomaga nam<br>lepiej zadbać o Kraków.</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <svg class="hero-arrow" viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="11"><path d="M8 8 62 62M66 24v42H24"/></svg>
+          <div class="sun"></div>
+          <div class="skyline skyline-back"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="skyline skyline-front"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="road"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="art-caption">50°03'41.4"N&nbsp; 19°56'10.2"E</div>
+        </div>
+      </section>
+
+      <section class="content-area resident-view" id="resident-view">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">ZGŁOŚ USTERKĘ</p>
+            <h2>Pomóż nam naprawić <span>Twoją okolicę.</span></h2>
+          </div>
+          <p class="heading-side-note"><span class="required-mark">*</span> Pola wymagane</p>
+        </div>
+        <div class="form-layout">
+          <form id="report-form" class="report-form">
+            <div class="form-step"><span>01</span><div><h3>Gdzie jest problem?</h3><p>Wskaż ulicę w Krakowie.</p></div></div>
+            <label class="field-label" for="street">Ulica <span>*</span></label>
+            <select id="street" name="street" required>
+              <option value="">Wybierz ulicę…</option>
+            </select>
+
+            <label class="field-label" for="category">Rodzaj problemu <span>*</span></label>
+            <select id="category" name="category" required>
+              <option value="">Wybierz kategorię…</option>
+              <option>Dziura w jezdni</option>
+              <option>Uszkodzony chodnik</option>
+              <option>Uszkodzona infrastruktura</option>
+              <option>Niebezpieczne oznakowanie</option>
+              <option>Inny problem drogowy</option>
+            </select>
+
+            <div class="form-step form-step-second"><span>02</span><div><h3>Opowiedz nam więcej.</h3><p>Krótki opis pomoże nam zareagować.</p></div></div>
+            <label class="field-label" for="description">Opis problemu <span>*</span></label>
+            <textarea id="description" name="description" rows="4" maxlength="600" placeholder="Np. głęboka dziura przy przejściu dla pieszych…" required></textarea>
+
+            <label class="field-label" for="photo">Zdjęcie miejsca <span class="optional">(opcjonalne)</span></label>
+            <input class="visually-hidden" id="photo" name="photo" type="file" accept="image/jpeg,image/png,image/webp">
+            <label class="upload-box" for="photo">
+              <span class="upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 5v14M5 12h14"/></svg></span>
+              <span class="upload-copy"><strong id="upload-title">Dodaj zdjęcie</strong><small id="upload-hint">JPG, PNG lub WEBP · maks. 10 MB</small></span>
+              <span class="upload-action">Wybierz plik</span>
+            </label>
+            <div class="selected-photo-preview" id="selected-photo-preview" hidden>
+              <img id="selected-photo-thumbnail" alt="Podgląd wybranego zdjęcia">
+              <button class="photo-preview-trigger" id="preview-selected-photo" type="button">Powiększ podgląd</button>
+            </div>
+            <p class="form-feedback" id="form-feedback" role="status" aria-live="polite"></p>
+            <button class="submit-button" type="submit">Wyślij zgłoszenie <span aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h17M14 6l6 6-6 6"/></svg></span></button>
+            <p class="privacy-note">Opis i ewentualne zdjęcie zostaną zapisane lokalnie na tym urządzeniu.</p>
+          </form>
+
+          <aside class="form-aside">
+            <div class="aside-card">
+              <span class="aside-kicker">DOBRZE WIEDZIEĆ</span>
+              <div class="aside-icon" aria-hidden="true"><svg viewBox="0 0 32 32" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M16 2v28M2 16h28M6 6l20 20M26 6 6 26"/></svg></div>
+              <h3>Mały sygnał.<br>Wielka zmiana.</h3>
+              <p>Zgłoszenia z tej samej ulicy łączymy w jednym miejscu. Im więcej osób zwróci uwagę na problem, tym wyżej trafi on na liście priorytetów.</p>
+              <div class="aside-rule"></div>
+              <div class="aside-stat"><span class="stat-spark" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 17 17 7M9 7h8v8"/></svg></span><span><strong id="report-count-note">0</strong><small id="report-count-label">zgłoszeń od mieszkańców</small></span></div>
+              <div class="aside-stamp" aria-hidden="true">KRAKÓW<br>RAZEM</div>
+            </div>
+            <div class="aside-tip"><span aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z"/></svg></span><p><strong>Wskazówka</strong><br>Dodaj zdjęcie z bezpiecznej odległości — nie wchodź na jezdnię.</p></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="content-area official-view" id="official-view" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">CENTRUM ZGŁOSZEŃ · KRAKÓW</p>
+            <h2>Ulice, które <span>potrzebują uwagi.</span></h2>
+          </div>
+          <div class="dashboard-date"><span class="status-dot"></span> Lokalna baza zgłoszeń</div>
+        </div>
+        <div class="dashboard-stats" id="dashboard-stats"></div>
+        <div class="dashboard-toolbar">
+          <div><h3>Zgłoszenia według ulic</h3><p>Ulice z największą liczbą zgłoszeń mają najwyższy priorytet.</p></div>
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="street-search" type="search" placeholder="Szukaj ulicy…" aria-label="Szukaj ulicy"></label>
+        </div>
+        <div class="report-tabs" role="tablist" aria-label="Status zgłoszeń">
+          <button class="report-tab is-active" id="unchecked-tab" type="button" role="tab" aria-selected="true" aria-controls="street-groups" data-status="unchecked">Niesprawdzone <span id="unchecked-count">0</span></button>
+          <button class="report-tab" id="verified-tab" type="button" role="tab" aria-selected="false" aria-controls="street-groups" data-status="verified">Sprawdzone <span id="verified-count">0</span></button>
+        </div>
+        <div class="bulk-actions">
+          <label class="select-all-label"><input id="select-all-reports" type="checkbox"> Zaznacz wszystkie widoczne</label>
+          <div class="bulk-action-buttons">
+            <button class="verify-selected-button" id="verify-selected-reports" type="button" disabled>Oznacz jako sprawdzone <span id="selected-report-count">0</span></button>
+            <button class="delete-selected-button" id="delete-selected-reports" type="button" disabled>Usuń zaznaczone</button>
+          </div>
+        </div>
+        <p class="dashboard-feedback" id="dashboard-feedback" role="status" aria-live="polite"></p>
+        <div id="street-groups" class="street-groups"></div>
+        <p id="empty-state" class="empty-state" hidden>Nie ma jeszcze zgłoszeń. Zgłoszenia mieszkańców pojawią się tutaj.</p>
+      </section>
+    </main>
+
+    <dialog class="photo-dialog" id="photo-dialog" aria-labelledby="photo-dialog-caption">
+      <div class="photo-dialog-header">
+        <p id="photo-dialog-caption"></p>
+        <button class="photo-dialog-close" type="button" aria-label="Zamknij powiększone zdjęcie">×</button>
+      </div>
+      <img id="photo-dialog-image" alt="">
+    </dialog>
+
+    <dialog class="receipt-dialog" id="receipt-dialog" aria-labelledby="receipt-title">
+      <div class="receipt-content">
+        <span class="receipt-check" aria-hidden="true">✓</span>
+        <p class="eyebrow">ZGŁOSZENIE ZAPISANE</p>
+        <h2 id="receipt-title">Dziękujemy za wiadomość!</h2>
+        <p class="receipt-intro">Potwierdzamy przyjęcie zgłoszenia. Zostało zapisane lokalnie na tym urządzeniu.</p>
+        <dl class="receipt-details">
+          <div><dt>Numer zgłoszenia</dt><dd id="receipt-id"></dd></div>
+          <div><dt>Ulica</dt><dd id="receipt-street"></dd></div>
+          <div><dt>Rodzaj problemu</dt><dd id="receipt-category"></dd></div>
+          <div><dt>Data i godzina</dt><dd id="receipt-time"></dd></div>
+        </dl>
+        <button class="receipt-close-button" id="close-receipt" type="button">Gotowe</button>
+      </div>
+    </dialog>
+
+    <dialog class="login-dialog" id="login-dialog" aria-labelledby="login-title">
+      <form id="login-form" class="login-form">
+        <p class="eyebrow">STREFA URZĘDNIKA</p>
+        <h2 id="login-title">Podaj hasło dostępu.</h2>
+        <p class="login-description">Wprowadź hasło, aby otworzyć panel zgłoszeń.</p>
+        <label class="field-label" for="official-password">Hasło</label>
+        <input id="official-password" name="password" type="password" autocomplete="current-password" required>
+        <p class="login-feedback" id="login-feedback" role="alert" aria-live="polite"></p>
+        <div class="login-actions">
+          <button class="login-cancel" id="cancel-login" type="button">Anuluj</button>
+          <button class="login-submit" type="submit">Zaloguj się</button>
+        </div>
+      </form>
+    </dialog>
+
+    <footer class="site-footer"><span><span class="footer-brand">City<b>FLOW</b></span> <small>LEPSZE ULICE ZACZYNAJĄ SIĘ OD ZGŁOSZENIA</small></span><span>Kraków, Polska <span class="footer-heart">♥</span></span></footer>
+  </body>
+</html>
